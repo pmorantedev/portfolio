@@ -103,6 +103,23 @@
             });
         });
 
+        var language;
+        function getLanguage() {
+            (localStorage.getItem('language') == null) ? setLanguage('en') : false;
+            $.ajax({
+                url: '/language/' + localStorage.getItem('language') + '.json',
+                dataType: 'json', async: false, dataType: 'json',
+                success: function (lang) { language = lang }
+            });
+        }
+
+        function setLanguage(lang) {
+            localStorage.setItem('language', lang);
+            $('.sl-nav span').removeClass('active');
+            $('#' + lang).addClass('active');
+            console.log(lang);
+        }
+
     </script>
 </head>
 
@@ -122,6 +139,24 @@
                 <li><a href="#skills" class="menu-btn"><strong>Skills</strong></a></li>
                 <li><a href="#projects" class="menu-btn"><strong>Projects</strong></a></li>
                 <li><a href="#contact" class="menu-btn"><strong>Contact</strong></a></li>
+                <li>
+                    <!-- Language Selector -->
+                    <div class="sl-nav">
+                        <ul>
+                            <li><b>English</b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                <div class="triangle"></div>
+                                <ul>
+                                    <li><i class="sl-flag flag-en"></i> <span id="en"
+                                            onclick="setLanguage('en')">English</span></li>
+                                    <li><i class="sl-flag flag-es"></i> <span id="es" onclick="setLanguage('es')">Spanish</span>
+                                    </li>
+                                    <li><i class="sl-flag flag-cat"></i> <span id="cat"
+                                            onclick="setLanguage('cat')">Catalan</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
             <div class="menu-btn">
                 <i class="fas fa-bars"></i>
@@ -147,7 +182,8 @@
             <h2 class="title">About Me</h2>
             <div class="about-content">
                 <div class="column left">
-                    <img src="https://pbs.twimg.com/profile_images/1381956876997394435/ekz-QVjl.jpg" alt="Profile Image 626x626">
+                    <img src="https://pbs.twimg.com/profile_images/1381956876997394435/ekz-QVjl.jpg"
+                        alt="Profile Image 626x626">
                 </div>
                 <div class="column right">
                     <div class="text">I'm Pablo and I'm a <span class="typing-2"></span></div>
@@ -155,7 +191,7 @@
                         learn even more. I'm extremely capable of mastering new technologies.</p>
                     <br>
                     <div class="text">Why Work With Me</div>
-                    <p>I believe that good communication is the core of any team and love to invest the necessary 
+                    <p>I believe that good communication is the core of any team and love to invest the necessary
                         time to understand every problem
                         that I might find.</p>
 
@@ -181,7 +217,8 @@
                     <div class="box">
                         <i class="fas fa-user-secret"></i>
                         <div class="text">User Privacy</div>
-                        <p>I like to ensure that any application that I develop has the most advanced encrypted system possible
+                        <p>I like to ensure that any application that I develop has the most advanced encrypted system
+                            possible
                             and ethical storage.
                         </p>
                     </div>
@@ -190,7 +227,8 @@
                     <div class="box">
                         <i class="fas fa-code"></i>
                         <div class="text">Problem Solver</div>
-                        <p>I believe that it's my job to make sure that I find proper and fruitful solutions for every problem
+                        <p>I believe that it's my job to make sure that I find proper and fruitful solutions for every
+                            problem
                             and understand to the full the necessity of the users.</p>
                     </div>
                 </div>
@@ -225,7 +263,8 @@
                     <div class="text">DEVELOPMENT SKILLS</div>
 
                     <p>
-                        I'm familiar & work on a daily basis with Java and in my internship I've worked with C# and Angular and other modern frameworks. 
+                        I'm familiar & work on a daily basis with Java and in my internship I've worked with C# and
+                        Angular and other modern frameworks.
                     </p>
                 </div>
                 <div class="column right">
@@ -365,7 +404,8 @@
                                 <li><a href="https://github.com/pmorantedev" style="text-decoration: none;"><i
                                             class="fab fa-github" style="color: white;"></i></a></li>
                                 <li><a href="https://www.linkedin.com/in/pablo-morante-garcia/"
-                                        style="text-decoration: none;"><i class="fab fa-linkedin-in" style="color: white;"></i></a></li>
+                                        style="text-decoration: none;"><i class="fab fa-linkedin-in"
+                                            style="color: white;"></i></a></li>
                                 <li><a href="https://www.instagram.com/morante.pablo/" style="text-decoration: none;"><i
                                             class="fab fa-instagram" style="color: white;"></i></a></li>
                                 <li><a href="https://twitter.com/Pablyzz/" style="text-decoration: none;"><i
