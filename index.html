@@ -33,6 +33,8 @@
                 }
             });
 
+            getLanguage();
+
             //  slide-up script  //
 
             $(".scroll-up-btn").click(function () {
@@ -105,19 +107,33 @@
 
         var language;
         function getLanguage() {
-            (localStorage.getItem('language') == null) ? setLanguage('en') : false;
+            console.log("entra getlanguage " + localStorage.getItem('language'));
+            (localStorage.getItem('language') == null) ? setLanguage('en') : setLanguage(localStorage.getItem('language'));
             $.ajax({
-                url: '/language/' + localStorage.getItem('language') + '.json',
+                url: './assets/languages/' + localStorage.getItem('language') + '.json',
                 dataType: 'json', async: false, dataType: 'json',
                 success: function (lang) { language = lang }
             });
+            translatePage();
         }
 
         function setLanguage(lang) {
-            localStorage.setItem('language', lang);
             $('.sl-nav span').removeClass('active');
-            $('#' + lang).addClass('active');
-            console.log(lang);
+            $('#translate-' + lang).addClass('active');
+            if (localStorage.getItem('language') !== lang) { // Check if the selected language is different
+                localStorage.setItem('language', lang);
+                console.log(lang);
+                location.reload();
+            }
+        }
+
+        function translatePage() {
+            Object.keys(language).forEach(key => {
+                const element = document.getElementById(`translate-${key}`);
+                if (element) {
+                    element.textContent = language[key];
+                }
+            });
         }
 
     </script>
@@ -133,25 +149,26 @@
         <div class="max-width">
             <div class="logo"><a href="#"><span>pmorantedev</span><span>.com</span></a></div>
             <ul class="menu">
-                <li><a href="#home" class="menu-btn"><strong>Home</strong></a></li>
-                <li><a href="#about" class="menu-btn"><strong>About</strong></a></li>
-                <li><a href="#services" class="menu-btn"><strong>Services</strong></a></li>
-                <li><a href="#skills" class="menu-btn"><strong>Skills</strong></a></li>
-                <li><a href="#projects" class="menu-btn"><strong>Projects</strong></a></li>
-                <li><a href="#contact" class="menu-btn"><strong>Contact</strong></a></li>
+                <li><a href="#home" class="menu-btn"><strong id="translate-home"></strong></a></li>
+                <li><a href="#about" class="menu-btn"><strong id="translate-about"></strong></a></li>
+                <li><a href="#services" class="menu-btn"><strong id="translate-services"></strong></a></li>
+                <li><a href="#skills" class="menu-btn"><strong id="translate-skills"></strong></a></li>
+                <li><a href="#projects" class="menu-btn"><strong id="translate-projects"></strong></a></li>
+                <li><a href="#contact" class="menu-btn"><strong id="translate-contact"></strong></a></li>
                 <li>
                     <!-- Language Selector -->
                     <div class="sl-nav">
                         <ul>
-                            <li><b>English</b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <li><b id="translate-actual-lang"></b> <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 <div class="triangle"></div>
                                 <ul>
-                                    <li><i class="sl-flag flag-en"></i> <span id="en"
-                                            onclick="setLanguage('en')">English</span></li>
-                                    <li><i class="sl-flag flag-es"></i> <span id="es" onclick="setLanguage('es')">Spanish</span>
+                                    <li><i class="sl-flag flag-en"></i> <span id="translate-en"
+                                            onclick="setLanguage('en')"></span></li>
+                                    <li><i class="sl-flag flag-es"></i> <span id="translate-es"
+                                            onclick="setLanguage('es')"></span>
                                     </li>
-                                    <li><i class="sl-flag flag-cat"></i> <span id="cat"
-                                            onclick="setLanguage('cat')">Catalan</span></li>
+                                    <li><i class="sl-flag flag-cat"></i> <span id="translate-cat"
+                                            onclick="setLanguage('cat')"></span></li>
                                 </ul>
                             </li>
                         </ul>
@@ -168,10 +185,13 @@
     <section class="home" id="home">
         <div class="max-width">
             <div class="home-content">
-                <div class="text-1">Hello, This is</div>
+                <div class="text-1" id="translate-home-1"></div>
                 <div class="text-2">Pablo Morante</div>
-                <div class="text-3">And I'm a <span class="typing"></span></div>
-                <a href="#contact">Hire me</a>
+                <div class="text-3">
+                    <p id="translate-home-2" style="display:inline;"></p>
+                    <p style="display:inline;"> </p><span class="typing"></span>
+                </div>
+                <a href="#contact" id="translate-home-3"></a>
             </div>
         </div>
     </section>
@@ -179,23 +199,23 @@
     <!--  About  -->
     <section class="about" id="about">
         <div class="max-width">
-            <h2 class="title">About Me</h2>
+            <h2 class="title" id="translate-about-me"></h2>
             <div class="about-content">
                 <div class="column left">
                     <img src="https://pbs.twimg.com/profile_images/1381956876997394435/ekz-QVjl.jpg"
                         alt="Profile Image 626x626">
                 </div>
                 <div class="column right">
-                    <div class="text">I'm Pablo and I'm a <span class="typing-2"></span></div>
-                    <p>I'm seeking an entry-level opportunity where I can utilize my skills and
-                        learn even more. I'm extremely capable of mastering new technologies.</p>
+                    <div class="text">
+                        <p id="translate-about-1" style="display:inline;"></p>
+                        <p style="display:inline;"> </p><span class="typing-2"></span>
+                    </div>
+                    <p id="translate-about-2"></p>
                     <br>
-                    <div class="text">Why Work With Me</div>
-                    <p>I believe that good communication is the core of any team and love to invest the necessary
-                        time to understand every problem
-                        that I might find.</p>
+                    <div class="text" id="translate-about-3"></div>
+                    <p id="translate-about-4"></p>
 
-                    <a href="#link" target="blank">Download CV</a>
+                    <a href="#link" target="blank" id="translate-about-5"></a>
                 </div>
             </div>
         </div>
@@ -204,32 +224,28 @@
     <!-- Services -->
     <section class="services" id="services">
         <div class="max-width">
-            <h2 class="title">My services</h2>
+            <h2 class="title" id="translate-my-services"></h2>
             <div class="serv-content">
                 <div class="card">
                     <div class="box">
                         <i class="fas fa-laptop-code"></i>
-                        <div class="text">Backend Developer</div>
-                        <p>My best skill is developing the backend of any app, primarily in Java</p>
+                        <div class="text" id="translate-service-1"></div>
+                        <p id="translate-service-1-desc"></p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <i class="fas fa-user-secret"></i>
-                        <div class="text">User Privacy</div>
-                        <p>I like to ensure that any application that I develop has the most advanced encrypted system
-                            possible
-                            and ethical storage.
+                        <div class="text" id="translate-service-2"></div>
+                        <p id="translate-service-2-desc">
                         </p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <i class="fas fa-code"></i>
-                        <div class="text">Problem Solver</div>
-                        <p>I believe that it's my job to make sure that I find proper and fruitful solutions for every
-                            problem
-                            and understand to the full the necessity of the users.</p>
+                        <div class="text" id="translate-service-3"></div>
+                        <p id="translate-service-3-desc"></p>
                     </div>
                 </div>
             </div>
@@ -239,33 +255,30 @@
     <!-- Skills -->
     <section class="skills" id="skills">
         <div class="max-width">
-            <h2 class="title">My Skills</h2>
+            <h2 class="title" id="translate-my-skills"></h2>
             <div class="skills-content">
                 <div class="column left">
 
-                    <div class="text">INTERNSHIP</div>
+                    <div class="text" id="translate-internship"></div>
                     <p>
-                        <li class="intern">MGA Games "Academy Software Developer" for 1 year</li>
+                        <li class="intern" id="translate-intern-1"></li>
                     </p>
 
                     <br>
-                    <div class="text">PROJECT</div>
+                    <div class="text" id="translate-project"></div>
 
                     <p>
-                        <li class="project">Portfolio (HTML, CSS, js, Bootstraps)</li>
-                        <li class="project">ERP Beta (SpringBoot, Thymeleaf, MySQL...)</li>
-                        <li class="project">Android App (Kotlin, Firebase)</li>
-                        <li class="project">Twitter automated bot (Python, Twitter API)</li>
-                        <li class="project">Unity Game (C#, 3D Models)</li>
+                        <li class="project" id="translate-project-1"></li>
+                        <li class="project" id="translate-project-2"></li>
+                        <li class="project" id="translate-project-3"></li>
+                        <li class="project" id="translate-project-4"></li>
+                        <li class="project" id="translate-project-5"></li>
                     </p>
 
                     <br>
-                    <div class="text">DEVELOPMENT SKILLS</div>
+                    <div class="text" id="translate-development"></div>
 
-                    <p>
-                        I'm familiar & work on a daily basis with Java and in my internship I've worked with C# and
-                        Angular and other modern frameworks.
-                    </p>
+                    <p id="translate-development-text"></p>
                 </div>
                 <div class="column right">
                     <div class="bars">
@@ -318,41 +331,41 @@
     <!-- Projects -->
     <section class="projects" id="projects">
         <div class="max-width">
-            <h2 class="title">My Projects</h2>
+            <h2 class="title" id="translate-my-projects"></h2>
             <div class="carousel owl-carousel">
                 <div class="card">
                     <div class="box">
                         <img src="./assets/images/newMedicPetLogo.png" alt="">
                         <div class="text">MedicPet</div>
-                        <p>SpringBoot project: ERP beta for a veterinary clinic</p>
+                        <p id="translate-card1-text"></p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <img src="./assets/images/laptop.jpg" alt="">
                         <div class="text">Portfolio</div>
-                        <p>HTML/CSS/JS: personal portfolio</p>
+                        <p id="translate-card2-text"></p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <img src="./assets/images/zenhabit.png" alt="">
                         <div class="text">ZenHabit</div>
-                        <p>Kotlin project: simple app for medidation / diary objectives.</p>
+                        <p id="translate-card3-text"></p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <img src="https://img.freepik.com/iconos-gratis/gorjeo_318-674515.jpg" alt="">
                         <div class="text">Python</div>
-                        <p>Twitter Bot: simple automated tweets with the Twitter API.</p>
+                        <p id="translate-card4-text"></p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
                         <img src="./assets/images/v4.jpg" alt="">
                         <div class="text">Unity</div>
-                        <p>Horror game: project made with Unity in 1 month</p>
+                        <p id="translate-card5-text"></p>
                     </div>
                 </div>
             </div>
@@ -362,18 +375,17 @@
     <!-- Contact -->
     <section class="contact" id="contact">
         <div class="max-width">
-            <h2 class="title">Contact Me</h2>
+            <h2 class="title" id="translate-contact-me"></h2>
             <div class="contact-content">
                 <div class="column left">
-                    <div class="text">Get in Touch</div>
-                    <p>Feel free to get in touch with me. Email me with any questions or inquiries. I'll be happy
-                        to answer your questions and set up a meeting with you.</p>
+                    <div class="text" id="translate-touch"></div>
+                    <p id="translate-touch-text"></p>
                     <div class="icons">
 
                         <div class="row">
                             <i class="fas fa-user"></i>
                             <div class="info">
-                                <div class="head">Name</div>
+                                <div class="head" id="translate-name"></div>
                                 <div class="sub-title"> Pablo Morante</div>
                             </div>
                         </div>
@@ -391,8 +403,8 @@
                         <div class="row">
                             <i class="fas fa-language"></i>
                             <div class="info">
-                                <div class="head">Languages Known</div>
-                                <div class="sub-title">English, Spanish, Catalan</div>
+                                <div class="head" id="translate-languages-known"></div>
+                                <div class="sub-title" id="translate-languages"></div>
                             </div>
                         </div>
 
@@ -417,7 +429,7 @@
 
                 <!-- Reach -->
                 <div class="column right">
-                    <div class="text">Message me</div>
+                    <div class="text" id="translate-message-me"></div>
                     <form action="mailto:#">
                         <div class="fields">
                             <div class="field name">
@@ -434,7 +446,7 @@
                             <textarea cols="30" rows="10" placeholder="Message.." required></textarea>
                         </div>
                         <div class="button-area">
-                            <button type="submit">Send message</button>
+                            <button type="submit" id="translate-send"></button>
                         </div>
                     </form>
                 </div>
@@ -445,7 +457,9 @@
     <!-- Footer -->
     <footer>
         <span>
-            Pablo Morante | <span class="far fa-copyright"></span> 2023 All Rights Reserved.
+            Pablo Morante | <span class="far fa-copyright"></span>
+            <p style="display:inline;"> </p>
+            <p id="translate-copy" style="display:inline;"></p>
         </span>
     </footer>
 

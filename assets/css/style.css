@@ -814,7 +814,7 @@
     }
   }
   
-  @media (max-width: 947px) {
+  @media (max-width: 1170px) {
     .menu-btn {
       display: block;
       z-index: 999;
@@ -932,7 +932,6 @@
     color: #fff;
     font-size: 14px;
     cursor: pointer;
-    margin-left: 15px;
   }
   .sl-nav ul {
     margin:0;

@@ -6,9 +6,10 @@
     "projects": "Projects",
     "contact": "Contact",
     "home-1": "Hello, this is",
-    "home-2": "And I'm a",
+    "home-2": "And I'm a ",
     "home-3": "Hire me",
     "about-me":"About Me",
+    "about-1": "I'm Pablo and I'm a",
     "about-2": "I'm seeking an entry-level opportunity where I can utilize my skills andlearn even more. I'm extremely capable of mastering new technologies.",
     "about-3": "Why Work With Me",
     "about-4": "I believe that good communication is the core of any team and love to invest the necessary time to understand every problem that I might find.",
@@ -50,5 +51,9 @@
     "languages": "English, Spanish, Catalan",
     "message-me": "Message me",
     "send": "Send message",
-    "copy": "2023 All Rights Reserved."
+    "copy": "2023 All Rights Reserved.",
+    "actual-lang": "English",
+    "en": "English",
+    "es": "Spanish",
+    "cat": "Catalan"
 }
